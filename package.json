@@ -6,8 +6,7 @@
   "scripts": {
     "server": "nodemon backend/server.js",
     "start": "node backend/server.js",
-    "build": "vite build --output public"
-    /* "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend npm run build --output backend" */
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "type": "module",
   "keywords": [],
