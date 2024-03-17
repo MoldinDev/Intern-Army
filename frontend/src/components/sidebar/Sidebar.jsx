@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchInput from "./SearchInput.jsx";
 import Conversations from "./Conversations.jsx";
-import LogoutButton from "./LogoutButton.jsx";
+import BottomSidebar from "./BottomSidebar.jsx";
 
 const Sidebar = () => {
+  const [isNewChat, setIsNewChat] = useState(false);
   return (
-    <div className="border-r border-gray-200 p-4 pb-2 flex flex-col">
+    <div className="border-r border-gray-400 border-opacity-30 p-5 pb-2 flex flex-col">
       <SearchInput />
       <div className="divider px-3"></div>
-      <Conversations />
-      <LogoutButton />
+      <Conversations isNewChat={isNewChat} />
+      <BottomSidebar setIsNewChat={setIsNewChat} isNewChat={isNewChat} />
     </div>
   );
 };

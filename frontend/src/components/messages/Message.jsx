@@ -1,16 +1,31 @@
 import React from "react";
+import { useAuthContext } from "../../../context/AuthContext";
+import useConversation from "../../zustand/useConversation";
+import { extractTime } from "../../utils/extractTime";
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { authUser } = useAuthContext();
+  const { selectedConversation } = useConversation();
+
+  const fromMe = authUser._id === message.senderId;
+  const chatClassName = fromMe ? "chat chat-end" : "chat chat-start";
+  const profilePic = fromMe
+    ? authUser.profilePic
+    : selectedConversation.profilePic;
+  const formattedTime = extractTime(message.createdAt);
+
   return (
-    <div className="chat chat-end">
+    <div className={chatClassName}>
       <div className="chat-image avatar">
         <div className="w-10 rounded-full">
-          <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"></img>
+          <img src={profilePic}></img>
         </div>
       </div>
-      <div className={`chat-bubble text-white bg-blue-500`}>Hai Goku-san!</div>
+      <div className={`chat-bubble text-white ${fromMe ? "bg-blue-500" : ""}`}>
+        {message.message}
+      </div>
       <div className={`chat-footer text-xs flex items-center gap-1 opacity-65`}>
-        01:24 PM
+        {formattedTime}
       </div>
     </div>
   );
